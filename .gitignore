@@ -21,3 +21,10 @@ cabal.project.local
 cabal.project.local~
 .HTF/
 .ghc.environment.*
+*.log
+*.nav
+*.out
+*.pdf
+*.snm
+*.toc
+_minted-tale/

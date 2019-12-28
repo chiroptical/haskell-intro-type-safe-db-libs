@@ -1,0 +1,109 @@
+%\PassOptionsToPackae{gray}{xcolor}
+\documentclass[hyperref={pdfpagelabels=false},12pt]{beamer}
+\setbeamertemplate{frametitle}[default][center]
+\mode<presentation>
+{
+ \usetheme{Warsaw}      % or try Darmstadt, Madrid, Warsaw, ...
+ \usecolortheme{default} % or try albatross, beaver, crane, ...
+ \usefonttheme{default}  % or try serif, structurebold, ...
+ \setbeamertemplate{footline}[frame number]
+ \setbeamertemplate{caption}[numbered]
+}
+
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{bm}
+\usepackage{helvet}
+\usepackage{listings}
+\usepackage{gensymb}
+\usepackage{array}
+\usepackage{times}
+\usepackage{xcolor}
+\usepackage{default}
+\usepackage{ulem}
+\usepackage{minted}
+\usepackage{hyperref}
+\usepackage{booktabs}
+
+% Great Commands
+\newcommand{\ig}[2]{\includegraphics[width=#1\linewidth]{#2}}
+\newcommand{\mybutton}[2]{\hyperlink{#1}{\beamerbutton{{#2}}}}
+\newcommand{\myvbutton}[2]{\vfill\hyperlink{#1}{\beamerbutton{{#2}}}}
+\newcommand{\code}[2]{\mintinline{#1}{#2}}
+\newcommand{\haskell}[1]{\mintinline{haskell}{#1}}
+\newcommand{\unnamedUrl}[1]{\href{#1}{\color{blue}{#1}}}
+\newcommand{\namedUrl}[2]{\href{#1}{\color{blue}{#2}}}
+\newcommand{\pygment}[3]{\inputminted[bgcolor=lightgray,linenos,fontsize=#1]{#2}{#3}}
+\newcommand{\pygmentLines}[5]{\inputminted[bgcolor=lightgray,linenos,fontsize=#1,firstline=#2,lastline=#3,autogobble]{#4}{#5}}
+
+% Color Scheme
+\definecolor{pittblue}{RGB}{28,41,87}
+\definecolor{pittgold}{RGB}{205,184,125}
+\setbeamercolor{structure}{fg=pittgold}
+\setbeamercolor{button}{bg=pittblue}
+
+\title[CRUD]{{A Tale of Three CRUD Apps in Haskell}}
+\author[CRUD]{{Barry Moore II}}
+\institute[CRC]{Center for Research Computing \\ University of Pittsburgh}
+\date{}
+
+\beamertemplatenavigationsymbolsempty
+
+\begin{document}
+
+\begin{frame}[plain]
+\titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+  \begin{itemize}
+    \item Database Libraries in Haskell
+    \item Introduction to App
+    \item App in Beam
+    \item App in Esqueleto/Persistent
+    \item App in Opaleye
+  \end{itemize}
+\end{frame}
+
+% \pygment{\normalsize}{haskell}{code/Functor.hs}
+% \begin{itemize}
+%   \item The function \haskell{(a -> b)} is ``lifted'' into the structure \haskell{f}
+% \end{itemize}  
+
+\begin{frame}{Disclaimers}
+  \begin{itemize}
+    \item I am not a ``database person''
+    \item My previous databases were all MongoDB manipulated with PyMongo
+    \item The databases I ``maintain'' could probably be simple files
+    \item Motivation for this talk: \unnamedUrl{https://williamyaoh.com/posts/2019-12-14-typesafe-db-libraries.html}
+    \item Code is available: \unnamedUrl{https://github.com/barrymoo/haskell-tale-of-crud-apps}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Database Libraries in Haskell}
+  \begin{itemize}
+    \item Embed SQL in Haskell (the ``simple'' packages)
+    \begin{itemize}
+      \item SQLite: \unnamedUrl{https://hackage.haskell.org/package/sqlite-simple}
+      \item PostgreSQL: \unnamedUrl{https://hackage.haskell.org/package/postgresql-simple}
+      \item MySQL: \unnamedUrl{https://hackage.haskell.org/package/mysql-simple}
+    \end{itemize}
+    \item Why would you embed SQL queries into a type-safe language?
+    \begin{itemize}
+      \item Persistent+Esqueleto: Backend agnostic, hides boilerplate behind
+        TH, no migrations
+      \item Beam: Backend agnostic with boat loads of boilerplate
+      \item Opaleye: PostgreSQL specific, heavy use of arrows (recommended)
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{What are we storing in the database?}
+  \pygment{\scriptsize}{haskell}{code/Person.hs}
+\end{frame}
+
+\begin{frame}{Persistent+Esqueleto}
+  Code here...
+\end{frame}
+
+\end{document}

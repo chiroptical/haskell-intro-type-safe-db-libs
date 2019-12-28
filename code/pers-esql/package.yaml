@@ -1,0 +1,41 @@
+library:
+  source-dirs: src
+tests:
+  pers-esql-test:
+    source-dirs: test
+    main: Spec.hs
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - pers-esql
+copyright: 2019 Barry Moore
+maintainer: moore0557@gmail.com
+dependencies:
+- mtl
+- base >= 4.7 && < 5
+- text
+- persistent
+- persistent-sqlite
+- persistent-template
+- esqueleto
+name: pers-esql
+version: 0.1.0.0
+extra-source-files:
+- README.md
+- ChangeLog.md
+author: Barry Moore
+github: barrymoo/pers-esql
+license: BSD3
+executables:
+  pers-esql-exe:
+    source-dirs: app
+    main: Main.hs
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - pers-esql
+description: Please see the README on GitHub at <https://github.com/barrymoo/pers-esql#readme>
