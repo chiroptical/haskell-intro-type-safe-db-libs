@@ -3,6 +3,7 @@
 {-# LANGUAGE MultiParamTypeClasses      #-}
 {-# LANGUAGE OverloadedStrings          #-}
 {-# LANGUAGE QuasiQuotes                #-}
+{-# LANGUAGE StandaloneDeriving         #-}
 {-# LANGUAGE TemplateHaskell            #-}
 {-# LANGUAGE TypeFamilies               #-}
 
@@ -21,40 +22,65 @@ PTH.share
   [PTH.persistLowerCase|
 Username
   username Text
-  deriving Show
 
 Email
   email Text
-  deriving Show
 
 Age
   age Int
-  deriving Show
 
 Person
   username Username
   age Age
   email Email
   UniqueUsername username
-  deriving Show
 |]
 
-mkTable :: IO ()
-mkTable = Sqlite.runSqlite "person.db" $ runMigration migrateAll
+deriving instance Show Username
+deriving instance Eq Username
+deriving instance Show Email
+deriving instance Eq Email
+deriving instance Show Age
+deriving instance Eq Age
+deriving instance Show Person
+deriving instance Eq Person
 
-create ::
-     MonadIO m => Username -> Age -> Email -> ReaderT SqlBackend m (Key Person)
-create name age email = insert (Person name age email)
+mkTable :: MonadIO m => ReaderT SqlBackend m ()
+mkTable = runMigration migrateAll
 
-read :: MonadIO m => Username -> Sqlite.SqlPersistT m [Entity Person]
-read name =
+createUsername
+  :: MonadIO m
+  => Username
+  -> Age
+  -> Email
+  -> ReaderT SqlBackend m (Key Person)
+createUsername name age email = insert (Person name age email)
+
+readUsername
+  :: MonadIO m
+  => Username
+  -> Sqlite.SqlPersistT m [Entity Person]
+readUsername name =
   select $
   from $ \p -> do
     where_ (p ^. PersonUsername ==. val name)
     return p
 
-update :: MonadIO m => Username -> Sqlite.SqlPersistT m ()
-update = undefined
+updateUsername
+  :: MonadIO m
+  => Username
+  -> Username
+  -> Sqlite.SqlPersistT m ()
+updateUsername prevUsername updatedUsername =
+  update $ \p -> do
+    set p [PersonUsername =. val updatedUsername]
+    where_ (p ^. PersonUsername ==. val prevUsername)
 
-delete :: MonadIO m => Username -> Sqlite.SqlPersistT m ()
-delete = undefined
+deleteUsername
+  :: MonadIO m
+  => Username
+  -> Sqlite.SqlPersistT m ()
+deleteUsername name =
+  delete $
+    from $ \p ->
+      where_ (p ^. PersonUsername ==. val name)

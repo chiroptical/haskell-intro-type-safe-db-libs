@@ -28,3 +28,4 @@ cabal.project.local~
 *.snm
 *.toc
 _minted-tale/
+test.db

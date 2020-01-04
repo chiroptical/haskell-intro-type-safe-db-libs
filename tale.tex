@@ -31,6 +31,7 @@
 \newcommand{\myvbutton}[2]{\vfill\hyperlink{#1}{\beamerbutton{{#2}}}}
 \newcommand{\code}[2]{\mintinline{#1}{#2}}
 \newcommand{\haskell}[1]{\mintinline{haskell}{#1}}
+\newcommand{\sql}[1]{\mintinline{sql}{#1}}
 \newcommand{\unnamedUrl}[1]{\href{#1}{\color{blue}{#1}}}
 \newcommand{\namedUrl}[2]{\href{#1}{\color{blue}{#2}}}
 \newcommand{\pygment}[3]{\inputminted[bgcolor=lightgray,linenos,fontsize=#1]{#2}{#3}}
@@ -42,7 +43,7 @@
 \setbeamercolor{structure}{fg=pittgold}
 \setbeamercolor{button}{bg=pittblue}
 
-\title[CRUD]{{A Tale of Three CRUD Apps in Haskell}}
+\title[CRUD]{{An Introduction to Type-Safe Database Libraries in Haskell}}
 \author[CRUD]{{Barry Moore II}}
 \institute[CRC]{Center for Research Computing \\ University of Pittsburgh}
 \date{}
@@ -57,11 +58,13 @@
 
 \begin{frame}{Outline}
   \begin{itemize}
-    \item Database Libraries in Haskell
-    \item Introduction to App
-    \item App in Beam
-    \item App in Esqueleto/Persistent
-    \item App in Opaleye
+    \item Overview of Database Libraries in Haskell
+    \item Basic CRUD Backends In:
+    \begin{itemize}
+      \item Esqueleto/Persistent
+      \item Beam
+      \item Opaleye
+    \end{itemize}
   \end{itemize}
 \end{frame}
 
@@ -90,10 +93,9 @@
     \end{itemize}
     \item Why would you embed SQL queries into a type-safe language?
     \begin{itemize}
-      \item Persistent+Esqueleto: Backend agnostic, hides boilerplate behind
-        TH, no migrations
+      \item Persistent+Esqueleto: Backend agnostic, hides boilerplate behind TH
       \item Beam: Backend agnostic with boat loads of boilerplate
-      \item Opaleye: PostgreSQL specific, heavy use of arrows (recommended)
+      \item Opaleye: PostgreSQL specific, heavy use of arrows
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -103,6 +105,81 @@
 \end{frame}
 
 \begin{frame}{Persistent+Esqueleto}
+  \begin{itemize}
+    \item Persistent
+    \begin{itemize}
+        \item type-safe, backend agnostic serialization layer
+        \item relies on template haskell to avoid boilerplate
+        \item backends are available via \haskell{pesistent-*} libraries 
+    \end{itemize}
+    \item Esqueleto
+    \begin{itemize}
+        \item type-safe, eDSL for SQL queries
+        \item specific to Persistent
+    \end{itemize}
+    \item Let's jump in!
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Persistent+Esqueleto: Type Definitions}
+  \pygmentLines{\scriptsize}{15}{18}{haskell}{code/pers-esql/src/Person.hs}
+  \vspace{-1.0cm}
+  \pygmentLines{\scriptsize}{20}{37}{haskell}{code/pers-esql/src/Person.hs}
+\end{frame}
+
+\begin{frame}{Persistent+Esqueleto: Migrations}
+  \pygmentLines{\scriptsize}{48}{49}{haskell}{code/pers-esql/src/Person.hs}
+  \pygment{\scriptsize}{sql}{code/sql/createTable.sql}
+\end{frame}
+
+\begin{frame}{Persistent+Esqueleto: Create/Insert}
+  \pygmentLines{\scriptsize}{51}{57}{haskell}{code/pers-esql/src/Person.hs}
+  \pygment{\scriptsize}{sql}{code/sql/insertInto.sql}
+\end{frame}
+
+\begin{frame}{Persistent+Esqueleto: Read/Get}
+  \pygmentLines{\scriptsize}{59}{67}{haskell}{code/pers-esql/src/Person.hs}
+  \pygment{\scriptsize}{sql}{code/sql/selectWhere.sql}
+\end{frame}
+
+\begin{frame}{Persistent+Esqueleto: Update}
+  \pygmentLines{\scriptsize}{69}{77}{haskell}{code/pers-esql/src/Person.hs}
+  \pygment{\scriptsize}{sql}{code/sql/updateSetWhere.sql}
+\end{frame}
+
+\begin{frame}{Persistent+Esqueleto: Delete}
+  \pygmentLines{\scriptsize}{79}{87}{haskell}{code/pers-esql/src/Person.hs}
+  \pygment{\scriptsize}{sql}{code/sql/deleteWhere.sql}
+\end{frame}
+
+\begin{frame}{Persistent+Esqueleto: Fresh Test Database}
+  \pygmentLines{\scriptsize}{19}{24}{haskell}{code/pers-esql/test/Spec.hs}
+\end{frame}
+
+\begin{frame}{Persistent+Esqueleto: Test Insert}
+  \pygmentLines{\scriptsize}{28}{31}{haskell}{code/pers-esql/test/Spec.hs}
+  \pygmentLines{\scriptsize}{40}{46}{haskell}{code/pers-esql/test/Spec.hs}
+\end{frame}
+
+\begin{frame}{Persistent+Esqueleto: Takeaways}
+  \begin{itemize}
+    \item I don't like defining the datatypes inside Template Haskell, because
+    \begin{itemize}
+      \item The generated data constructors are annoying (e.g.
+        \haskell{usernameUsername})
+      \item The capitalization of fields matters (uniqueness)
+    \end{itemize}
+    \item Aside from my gripes it was pretty easy to use
+    \item I will likely use this to wrap an existing MariaDB database in the future
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Beam}
+  Code here...
+\end{frame}
+
+\begin{frame}{Opaleye}
   Code here...
 \end{frame}
 
