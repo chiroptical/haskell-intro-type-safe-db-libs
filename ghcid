@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-while inotifywait -e close_write tale.tex; do
-  pdflatex -shell-escape tale.tex;
+while inotifywait -e close_write presentation.tex; do
+  pdflatex -shell-escape presentation.tex;
 done
