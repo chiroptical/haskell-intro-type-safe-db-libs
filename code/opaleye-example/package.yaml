@@ -10,6 +10,7 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - opaleye-example
+    - hspec
 copyright: 2020 Barry Moore
 maintainer: moore0557@gmail.com
 dependencies:

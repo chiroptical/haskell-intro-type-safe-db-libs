@@ -1,4 +1,3 @@
-{-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DeriveAnyClass #-}
@@ -135,13 +134,13 @@ createPerson username age email =
   runInsert $ insert (_persons personDb) $ insertValues
     [Person username age email]
 
-updatePerson
-  :: forall  (m :: * -> *) . MonadBeam Sqlite m => Username -> Username -> m ()
-updatePerson oldUsername newUsername = do
-  maybePerson <- maybeReadPerson oldUsername
+updatePersonEmail
+  :: forall  (m :: * -> *) . MonadBeam Sqlite m => Username -> Email -> m ()
+updatePersonEmail username email = do
+  maybePerson <- maybeReadPerson username
   case maybePerson of
     Just person -> do
-      let newPerson = person { _personUsername = newUsername }
+      let newPerson = person { _personEmail = email }
       runUpdate $ save (_persons personDb) newPerson
     Nothing -> pure ()
 
