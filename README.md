@@ -7,9 +7,9 @@
   - [x] Beam
   - [x] Opaleye
 - Review examples carefully:
-  - [ ] Persistent+Esqueleto
-  - [ ] Beam
-  - [ ] Opaleye
+  - [x] Persistent+Esqueleto
+  - [x] Beam
+  - [x] Opaleye
 - Initial slides complete for:
   - [x] Persistent+Esqueleto
   - [ ] Beam
