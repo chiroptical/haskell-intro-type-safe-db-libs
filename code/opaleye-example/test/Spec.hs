@@ -4,7 +4,7 @@ import           Test.Hspec
 import           Person
 import           Database.PostgreSQL.Simple
 import           Control.Monad                  ( void )
-import Opaleye (runInsert_, runDelete_, runUpdate_)
+import Opaleye (runInsert_, runDelete_, runUpdate_, runSelect)
 
 dropTable :: Connection -> IO ()
 dropTable conn = 
@@ -32,7 +32,8 @@ main = do
                   )
       result `shouldBe` 1
     it "should read a person" $ do
-      result <- runSelectPerson conn (selectUser $ User "bmooreii")
+      result <- runSelect conn
+        (selectUser $ User "bmooreii") :: IO [Person]
       length result `shouldBe` 1
     it "should update a person" $ do
       result <- runUpdate_ conn

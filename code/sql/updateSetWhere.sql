@@ -1,3 +1,3 @@
-UPDATE `personTable`
-SET username = "chiroptical"
-WHERE username = "barrymoo"
+UPDATE `persons`
+SET username = "barrymoo"
+WHERE username = "chiroptical"

@@ -1,2 +1,2 @@
-DELETE FROM `personTable`
-WHERE username = "chiroptical"
+DELETE FROM `persons`
+WHERE username = "barrymoo"

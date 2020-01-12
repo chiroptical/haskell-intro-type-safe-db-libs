@@ -66,7 +66,7 @@ type PersonField = Person' UserField EmailField AgeField
 personTable :: TableWriteRead PersonField
 personTable =
   table
-    "person"
+    "persons"
     (pPerson
        Person
          { _user = pUser (User (tableField "name"))
@@ -79,14 +79,19 @@ createPersonTable :: PGS.Connection -> IO Int64
 createPersonTable conn =
   PGS.execute_
     conn
-      "CREATE TABLE \"person\" (name TEXT PRIMARY KEY NOT NULL, email TEXT NOT NULL, age INT NOT NULL)"
+      "CREATE TABLE \"persons\"\
+      \( name TEXT PRIMARY KEY NOT NULL\
+      \, email TEXT NOT NULL\
+      \, age INT NOT NULL\
+      \)"
 
 deleteUser :: User -> Delete Int64
 deleteUser (User name) =
   Delete
     { dTable = personTable
     , dWhere =
-        \Person {_user = User {user = name'}} -> name' .=== sqlStrictText name
+        \Person {_user = User {user = name'}}
+          -> name' .=== sqlStrictText name
     , dReturning = rCount
     }
 
@@ -109,31 +114,20 @@ updateUserEmailAge :: User -> Email -> Age -> Update Int64
 updateUserEmailAge (User name) (Email email) (Age age) =
   Update
     { uTable = personTable
-    , uUpdateWith = \person -> person { _email = Email . sqlStrictText $ email 
-                                      , _age = Age . sqlInt4 $ age
-                                      }
+    , uUpdateWith = \person ->
+        person { _email = Email . sqlStrictText $ email 
+               , _age = Age . sqlInt4 $ age
+               }
     , uWhere =
-        \Person {_user = User {user = name'}} -> name' .=== sqlStrictText name
+        \Person {_user = User {user = name'}} ->
+          name' .=== sqlStrictText name
     , uReturning = rCount
     }
 
 selectUser :: User -> Select PersonField
 selectUser (User name) =
-  proc () ->
-  do person@Person{_user = User{user = name'}} <- selectTable
-                                                    personTable
-                                                    -< ()
-     restrict -< name' .=== sqlStrictText name
-     returnA -< person
-
-runDeletePerson :: PGS.Connection -> Delete Int64 -> IO ()
-runDeletePerson = (void .) . runDelete_
-
-runInsertPerson :: PGS.Connection -> Insert Int64 -> IO ()
-runInsertPerson = (void .) . runInsert_
-
-runUpdatePerson :: PGS.Connection -> Update Int64 -> IO ()
-runUpdatePerson = (void .) . runUpdate_
-
-runSelectPerson :: PGS.Connection -> Select PersonField -> IO [Person]
-runSelectPerson = runSelect
+  proc () -> do
+    person@Person {_user = User{user = name'}} <-
+      selectTable personTable -< ()
+    restrict -< name' .=== sqlStrictText name
+    returnA -< person

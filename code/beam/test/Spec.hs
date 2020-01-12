@@ -35,8 +35,10 @@ main = do
   hspec $
     describe "Basic CRUD Tests" $ do
       it "inserts successfully" $ do
-        runBeamSqliteDebug putStrLn conn (createPerson username age email)
-        result <- runBeamSqliteDebug putStrLn conn (maybeReadPerson username)
+        runBeamSqliteDebug putStrLn conn
+          (createPerson username age email)
+        result <- runBeamSqliteDebug putStrLn conn
+          (maybeReadPerson username)
         result `shouldNotBe` Nothing
       it "updates successfully" $ do
         runBeamSqliteDebug putStrLn conn (updatePersonEmail username newEmail)

@@ -1,2 +1,2 @@
-SELECT * FROM `personTable`
-WHERE username = "barrymoo"
+SELECT * FROM `persons`
+WHERE username = "chiroptical"

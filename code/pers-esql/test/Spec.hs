@@ -25,11 +25,11 @@ createFreshDb = do
 
 database' = "test.db"
 database = T.pack database'
-username = Username "barrymoo"
+username = Username "chiroptical"
 age = Age 31
-email = Email "moore0557@gmail.com"
+email = Email "dummy@dummy.com"
 person = Person username age email
-newUsername = username { usernameUsername = "chiroptical" }
+newUsername = username { usernameUsername = "barrymoo" }
 newPerson = person { personUsername = newUsername }
 
 main :: IO ()
@@ -38,9 +38,8 @@ main = hspec $ describe "Basic CRUD Operations" $ do
     result <- createFreshDb
     result `shouldBe` True
   it "should create a Person" $ do
-    liftIO $ Sqlite.runSqlite database $
+    entities <- Sqlite.runSqlite database $ do
       createUsername username age email
-    entities <- liftIO $ Sqlite.runSqlite database $
       readUsername username
     length entities `shouldBe` 1
     (Sqlite.entityVal <$> entities) `shouldBe` [person]

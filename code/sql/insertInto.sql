@@ -1,2 +1,2 @@
-INSERT INTO `personTable`
-VALUES ("barrymoo", 31, "moore0557@gmail.com")
+INSERT INTO `persons`
+VALUES ("chiroptical", 31, "dummy@dummy.com")

@@ -14,9 +14,14 @@ newtype Email =
     { email :: Text
     }
 
+newtype Age =
+  Age
+    { age :: Text
+    }
+
 data Person =
   Person
     { name  :: Name
-    , age   :: Int
+    , age   :: Age
     , email :: Email
     }
