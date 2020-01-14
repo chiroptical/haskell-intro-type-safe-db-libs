@@ -16,7 +16,7 @@ newtype Email =
 
 newtype Age =
   Age
-    { age :: Text
+    { age :: Int
     }
 
 data Person =

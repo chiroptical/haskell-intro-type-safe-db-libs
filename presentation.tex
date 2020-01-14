@@ -63,12 +63,9 @@
 \begin{frame}{Outline}
   \begin{itemize}
     \item Overview of Database Libraries in Haskell
-    \item Minimal CRUD Backends In:
-    \begin{itemize}
-      \item Esqueleto/Persistent
-      \item Beam
-      \item Opaleye
-    \end{itemize}
+    \item Modelling the Data
+    \item Building Queries
+    \item Running Queries
     \item Conclusions
   \end{itemize}
 \end{frame}
@@ -76,7 +73,7 @@
 \begin{frame}{Disclaimers}
   \begin{itemize}
     \item I don't have a lot of experience with databases
-    \item My previous databases were all MongoDB manipulated with PyMongo
+    \item Experience: MongoDB with PyMongo and Python Dataset with SQLite
     \item The databases I ``maintain'' could probably be simple files
     \item Motivation for this talk: \unnamedUrl{https://williamyaoh.com/posts/2019-12-14-typesafe-db-libraries.html}
     \item Code is available: \unnamedUrl{https://github.com/barrymoo/haskell-intro-type-safe-db-libs}
@@ -191,7 +188,7 @@
 
 \begin{frame}{Beam: Update}
   \pygmentLines{\scriptsize}{150}{159}{haskell}{code/beam/src/Person.hs}
-  \pygment{\scriptsize}{sql}{code/sql/updateSetWhere.sql}
+  \pygment{\scriptsize}{sql}{code/sql/updateSetWhereEmail.sql}
 \end{frame}
 
 \begin{frame}{Beam: Remove/Delete}
@@ -239,7 +236,7 @@
 
 \begin{frame}{Opaleye: Update}
   \pygmentLines{\scriptsize}{113}{125}{haskell}{code/opaleye-example/src/Person.hs}
-  \pygment{\scriptsize}{sql}{code/sql/updateSetWhere.sql}
+  \pygment{\scriptsize}{sql}{code/sql/updateSetWhereEmailAge.sql}
 \end{frame}
 
 \begin{frame}{Opaleye: Remove/Delete}
