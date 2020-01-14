@@ -2,3 +2,6 @@
 
 To compile the code examples you can `stack install && stack test`. For the
 Opaleye example, you will need `postgres` and `libpq-dev`.
+
+To compile the presentation, you'll need minted and LaTeX.
+`pdflatex -shell-escape presentation.tex`
