@@ -177,22 +177,22 @@
 \end{frame}
 
 \begin{frame}{Beam: Create}
-  \pygmentLines{\scriptsize}{146}{148}{haskell}{code/beam/src/Person.hs}
+  \pygmentLines{\scriptsize}{147}{152}{haskell}{code/beam/src/Person.hs}
   \pygment{\scriptsize}{sql}{code/sql/insertInto.sql}
 \end{frame}
 
 \begin{frame}{Beam: Read/Get}
-  \pygmentLines{\scriptsize}{137}{144}{haskell}{code/beam/src/Person.hs}
+  \pygmentLines{\scriptsize}{138}{145}{haskell}{code/beam/src/Person.hs}
   \pygment{\scriptsize}{sql}{code/sql/selectWhere.sql}
 \end{frame}
 
 \begin{frame}{Beam: Update}
-  \pygmentLines{\scriptsize}{150}{159}{haskell}{code/beam/src/Person.hs}
+  \pygmentLines{\scriptsize}{154}{163}{haskell}{code/beam/src/Person.hs}
   \pygment{\scriptsize}{sql}{code/sql/updateSetWhereEmail.sql}
 \end{frame}
 
 \begin{frame}{Beam: Remove/Delete}
-  \pygmentLines{\scriptsize}{161}{168}{haskell}{code/beam/src/Person.hs}
+  \pygmentLines{\scriptsize}{165}{172}{haskell}{code/beam/src/Person.hs}
   \pygment{\scriptsize}{sql}{code/sql/deleteWhere.sql}
 \end{frame}
 
@@ -202,13 +202,11 @@
 
 \begin{frame}{Beam: Takeaways}
   \begin{itemize}
-    \item Hint: use partial type signatures to ease type definitions
+    \item Hint: use partial type signatures to ease type definitions (also
+      backend agnostic)
       \pygment{\scriptsize}{haskell}{code/partialTypeSigs.hs}
-    \begin{itemize}
-      \item \unnamedUrl{https://github.com/barrymoo/slurm-proposals/blob/master/src/Queries.hs\#L31}
-    \end{itemize}
     \item Migrations are tricky, probably avoid them at the beginning
-    \item Boilerplate gets annoying quickly
+    \item Boilerplate is a bit annoying
   \end{itemize}
 \end{frame}
 
@@ -240,7 +238,7 @@
 \end{frame}
 
 \begin{frame}{Opaleye: Remove/Delete}
-  \pygmentLines{\scriptsize}{89}{96}{haskell}{code/opaleye-example/src/Person.hs}
+  \pygmentLines{\scriptsize}{88}{96}{haskell}{code/opaleye-example/src/Person.hs}
   \pygment{\scriptsize}{sql}{code/sql/deleteWhere.sql}
 \end{frame}
 
@@ -254,19 +252,18 @@
     \item No migrations, handled on your own
     \item Arrows could have been a rabbit hole, but docs made them easy enough
     \item Only PostgreSQL backend
-    \item Despite this, I enjoyed using Opaleye
+    \item Types definitions are very clean
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Conclusions}
   \begin{itemize}
-    \item One library wasn't particularly harder than another to use
+    \item Once going all of the libraries are relatively easy to use
     \item ``Time to first query'' is fast with Persistent
     \item Learning curve is more shallow with Beam and Opaleye
-    \item Queries in Opaleye are different than Beam/Persistent
     \item I would probably use Opaleye for a new project if it supported SQLite
       backend
-    \item So, what will I choose for my next project?
+    \item I will be choosing Beam for now
   \end{itemize}
 \end{frame}
 

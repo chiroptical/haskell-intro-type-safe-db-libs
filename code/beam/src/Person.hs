@@ -9,6 +9,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PartialTypeSignatures #-}
 {-# LANGUAGE ImpredicativeTypes    #-}
+{-# LANGUAGE PartialTypeSignatures    #-}
 
 module Person where
 
@@ -143,12 +144,15 @@ maybeReadPerson account =
   runSelectReturningOne $
     lookup_ (_persons personDb) (PersonId account)
 
+createPerson
+  :: MonadBeam Sqlite m =>
+    Username -> Int -> Email -> m ()
 createPerson username age email =
   runInsert $ insert (_persons personDb) $
     insertValues [Person username age email]
 
 updatePersonEmail
-  :: forall  (m :: * -> *). MonadBeam Sqlite m =>
+  :: MonadBeam Sqlite m =>
     Username -> Email -> m ()
 updatePersonEmail username email = do
   maybePerson <- maybeReadPerson username
@@ -159,10 +163,10 @@ updatePersonEmail username email = do
     Nothing -> pure ()
 
 deletePerson
-  :: forall  (m :: * -> *). MonadBeam Sqlite m =>
+  :: MonadBeam Sqlite m =>
     Username -> m ()
 deletePerson username =
   runDelete
     $ delete (_persons personDb) $
     \person ->
-      _personUsername person ==. val_ username
+     _personUsername person ==. val_ username
