@@ -29,3 +29,4 @@ cabal.project.local~
 *.toc
 _minted-presentation/
 test.db
+result

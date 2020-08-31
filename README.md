@@ -1,10 +1,18 @@
 # Presentation for "An Introduction to Type-Safe Database Libraries in Haskell"
 
+Latest release:
+https://github.com/chiroptical/haskell-intro-type-safe-db-libs/releases/latest/download/haskell-intro-type-safe-db-libs.pdf
+
 To compile the code examples you can `stack install && stack test`. For the
 Opaleye example, you will need `postgres` and `libpq-dev`.
 
 To compile the presentation, you'll need minted and LaTeX.
-`pdflatex -shell-escape presentation.tex; pdflatex -shell-escape presentation.tex; pdflatex -shell-escape presentation.tex`
+
+```
+pdflatex -shell-escape presentation.tex
+pdflatex -shell-escape presentation.tex
+pdflatex -shell-escape presentation.tex
+```
 
 #### Notes
 

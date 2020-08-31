@@ -33,7 +33,7 @@ pkgs.stdenv.mkDerivation {
   buildInputs = inputs;
   src = builtins.fetchurl {
     url = "https://github.com/chiroptical/haskell-intro-type-safe-db-libs/archive/v0.1.tar.gz";
-    sha256 = "0qm5xbqnwrr2ylpgpdmqnngnm4z089f2an5694ff5zb8m08dpwdq";
+    sha256 = "04pc7yzbzilk3yxh0x1v6fwpmv0yh255ygssimhwrisw53hvh0b4";
   };
   buildPhase = ''
     source $stdenv/setup
